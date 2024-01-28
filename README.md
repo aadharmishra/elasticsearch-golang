@@ -1,2 +1,2 @@
 # elasticsearch-golang
-A simple elasticsearch crud api in golang 
+A simple elasticsearch REST api in GoLang for CRUD operations
