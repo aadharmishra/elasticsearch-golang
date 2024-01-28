@@ -13,3 +13,12 @@ type Details struct {
 	DocumentID   string `json:"documentID,omitempty"`
 	DocumentType string `json:"documentType,omitempty"`
 }
+
+type Config struct {
+	Credentials Credentials `json:"credentials,omitempty"`
+}
+
+type Credentials struct {
+	Id     string `json:"id,omitempty"`
+	ApiKey string `json:"apiKey,omitempty"`
+}
