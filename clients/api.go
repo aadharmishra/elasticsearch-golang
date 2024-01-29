@@ -310,7 +310,7 @@ func (service *EsService) DeleteDocument() {
 }
 
 func ValidateResponse(resp *esapi.Response, err error) (bool, error) {
-	if resp == nil || (resp.StatusCode >= 200 && resp.StatusCode <= 300) || err != nil {
+	if resp == nil || (resp.StatusCode <= 200 && resp.StatusCode >= 300) || err != nil {
 		return false, err
 	}
 
