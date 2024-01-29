@@ -1,4 +1,4 @@
-package elasticsearchgolang
+package connection
 
 import (
 	"encoding/json"
@@ -6,12 +6,16 @@ import (
 	"log"
 	"os"
 
+	"esmodule/models"
+
 	"github.com/elastic/go-elasticsearch/v8"
 )
 
+var ConnPool map[string]*elasticsearch.Client
+
 func InitElasticClient() (*elasticsearch.Client, error) {
 
-	var config *Config
+	var config *models.Config
 	var err error
 	var data []byte
 
@@ -29,8 +33,8 @@ func InitElasticClient() (*elasticsearch.Client, error) {
 	}
 
 	cfg := elasticsearch.Config{
-		CloudID: config.Credentials.Id,
-		APIKey:  config.Credentials.ApiKey,
+		CloudID: config.EsCredentials.Id,
+		APIKey:  config.EsCredentials.ApiKey,
 	}
 
 	es, err := elasticsearch.NewClient(cfg)
@@ -47,6 +51,10 @@ func InitElasticClient() (*elasticsearch.Client, error) {
 		fmt.Println(infores)
 		return nil, err
 	}
+
+	//global connection pool
+	ConnPool = make(map[string]*elasticsearch.Client)
+	ConnPool["client"] = es
 
 	return es, nil
 

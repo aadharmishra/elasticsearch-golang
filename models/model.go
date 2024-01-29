@@ -1,4 +1,4 @@
-package elasticsearchgolang
+package models
 
 type Author struct {
 	Name        string  `json:"name,omitempty"`
@@ -15,10 +15,10 @@ type Details struct {
 }
 
 type Config struct {
-	Credentials Credentials `json:"credentials,omitempty"`
+	EsCredentials EsCredentials `json:"esCredentials,omitempty"`
 }
 
-type Credentials struct {
+type EsCredentials struct {
 	Id     string `json:"id,omitempty"`
 	ApiKey string `json:"apiKey,omitempty"`
 }

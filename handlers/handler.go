@@ -1,7 +1,12 @@
-package elasticsearchgolang
+package handlers
 
 import (
 	"strings"
+
+	conn "esmodule/connection"
+	"esmodule/interfaces"
+
+	"esmodule/clients"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,17 +15,17 @@ func RequestHandler(ctx *gin.Context) {
 	url := ctx.Request.URL.String()
 	method := ctx.Request.Method
 
-	esClient := connPool["client"]
+	esClient := conn.ConnPool["client"]
 
 	if esClient == nil {
 		return
 	}
 
-	var service IDatabase
+	var service interfaces.IDatabase
 
-	service = &esService{
-		ctx: ctx,
-		es:  esClient,
+	service = &clients.EsService{
+		Ctx: ctx,
+		Es:  esClient,
 	}
 
 	if strings.Contains(url, "/create") && method == "POST" {
